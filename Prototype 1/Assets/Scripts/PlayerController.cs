@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public string inputID;
+    public KeyCode switchkey;
+
     public CameraController cameraMain;
 
     //Private variables
@@ -22,10 +25,10 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         //Saving the input from the player with Left or Right
-        horizontalInput = Input.GetAxis("Horizontal");
+        horizontalInput = Input.GetAxis("Horizontal" + inputID);
 
         //Saving the input from the player with Up or Down
-        verticalInput = Input.GetAxis("Vertical");
+        verticalInput = Input.GetAxis("Vertical" + inputID);
 
         //Move Truck Forward
         transform.Translate(Vector3.forward * Time.deltaTime * Speed * verticalInput);
@@ -37,7 +40,7 @@ public class PlayerController : MonoBehaviour
             cameraMain.transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
         }
         
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(switchkey))
         {
             //print("Player has pressed C button");
             if (!cameraMain.cameraSwap)
