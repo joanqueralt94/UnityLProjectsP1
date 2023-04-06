@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public CameraController cameraMain;
+
     //Private variables
     private float Speed = 20.0f;
     private float turnSpeed = 25.0f;
@@ -29,6 +31,23 @@ public class PlayerController : MonoBehaviour
         transform.Translate(Vector3.forward * Time.deltaTime * Speed * verticalInput);
         //Move Truck Sideways
         transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
+        //Moving 1st person camera with rotation too
+        if(cameraMain.cameraSwap)
+        {
+            cameraMain.transform.Rotate(Vector3.up, Time.deltaTime * turnSpeed * horizontalInput);
+        }
         
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            //print("Player has pressed C button");
+            if (!cameraMain.cameraSwap)
+            {
+                cameraMain.cameraSwap = true;
+            }
+            else
+            {
+                cameraMain.cameraSwap = false;  
+            }
+        }        
     }
 }
